@@ -41,10 +41,10 @@ Step 1: Set up controls for evaluation experiments
 run.cv = TRUE
 K = 5
 #Specify method (Only implement one method at a time)
-SIFT = TRUE
+SIFT = FALSE
 GIST = FALSE
 HOG = FALSE
-LBP = FALSE
+LBP = TRUE
 ```
 
 
@@ -122,21 +122,36 @@ if (run.cv){
 Visualize cross-validation results:
 ```{r}
 if (run.cv){
-  ## Plot CV error vs different margin & bandwidth parameters:
-  plot(svm_tune ,type='persp', main ="CV error vs different margin & bandwidth parameters")
+  ## Plot cost/gamma vs CV error:
+  perf_svm$cost.f <- as.factor(perf_svm$cost)
   
-  ## Plot cost vs CV error:
-  perf_svm$gamma.f <- as.factor(perf_svm$gamma) 
-  cost_plot <- ggplot(data = perf_svm)+ 
-    geom_line(aes(x = cost, y = error, linetype = gamma.f, col = gamma.f))
+  if (SIFT){
+    error_plot <- ggplot(data = perf_svm)+ 
+      geom_line(aes(x = gamma, y = error, linetype = cost.f, col = cost.f))+
+      labs(title = "SIFT & RBF SVM", x = "Cost", y = "Error Rate")
+    print(error_plot)
+  }
   
-  ## Plot gamma vs CV error:
-  perf_svm$cost.f <- as.factor(perf_svm$cost) 
-  gamma_plot <- ggplot(data = perf_svm)+ 
-    geom_line(aes(x = gamma, y = error, linetype = cost.f, col = cost.f))
+  else if (GIST){
+    error_plot <- ggplot(data = perf_svm)+ 
+      geom_line(aes(x = gamma, y = error, linetype = cost.f, col = cost.f))+
+      labs(title = "GIST & RBF SVM", x = "Cost", y = "Error Rate")
+    print(error_plot)
+  }
   
-  cost_plot
-  gamma_plot
+  else if (LBP){
+    error_plot <- ggplot(data = perf_svm)+ 
+      geom_line(aes(x = gamma, y = error, linetype = cost.f, col = cost.f))+
+      labs(title = "LBP & RBF SVM", x = "Cost", y = "Error Rate")
+    print(error_plot)
+  }
+  
+  else if (HOG){
+    error_plot <- ggplot(data = perf_svm)+ 
+      geom_line(aes(x = gamma, y = error, linetype = cost.f, col = cost.f))+
+      labs(title = "HOG & RBF SVM", x = "Cost", y = "Error Rate")
+    print(error_plot)
+  }
 }
 ```
 
