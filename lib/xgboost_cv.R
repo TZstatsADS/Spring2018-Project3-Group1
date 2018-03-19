@@ -8,7 +8,7 @@ xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name){
   for(j in 1:length(list_max.depth)){
     for(k in 1:length(list_eta)){
       param <- list("objective" = "multi:softmax",
-                    "num_class" = 3,
+                    "num_class" = 4,
                     "eta" = list_eta[k], "max.depth" = list_max.depth[j])
       
       cv <- xgb.cv(data = train, label = lab, params = param , nround = nrou, nfold = 5, metrics = "merror", verbose = 0)

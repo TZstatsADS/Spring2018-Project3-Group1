@@ -17,7 +17,6 @@ ind <- c(data.matrix(read.table("../data/TEST-NUMBER.txt")))
 
 lab <- read.csv("../data/label_train.csv")
 lab_tr <- data.matrix(lab[-ind, 3])
-lab_tr[which(lab_tr == 3)] = 0
 ```
 
 
@@ -62,12 +61,11 @@ lbp_tr[[2]]
 # Using SIFT
 ```{r}
 lab_te <- data.matrix(lab[ind, 3])
-lab_te[which(lab_te == 3)] = 0
 test <- data.matrix(dat2[ind, ])
 
 
 param <- list("objective" = "multi:softmax",
-                    "num_class" = 3,
+                    "num_class" = 4,
                     "eta" = 0.8, "max.depth" = 3)
 system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
 pred <- predict(bst, test)
@@ -89,7 +87,7 @@ sift_tr2[[2]]
 # Another test using SIFT
 ```{r}
 param <- list("objective" = "multi:softmax",
-                    "num_class" = 3,
+                    "num_class" = 4,
                     "eta" = 0.9, "max.depth" = 4)
 system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 35, verbose = 0))
 pred <- predict(bst, test)
