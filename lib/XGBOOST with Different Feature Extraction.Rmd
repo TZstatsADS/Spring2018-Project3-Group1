@@ -1,0 +1,35 @@
+---
+title: "XGBOOST with Different Feature Extraction"
+output: html_notebook
+---
+
+```{r}
+ind <- c(data.matrix(read.table("../data/TEST-NUMBER.txt")))
+
+lab <- read.csv("../data/label_train.csv")
+lab_tr <- data.matrix(lab[-ind, 3])
+lab_tr[which(lab_tr == 3)] = 0
+```
+
+
+# GIST
+```{r}
+dat1 <- read.csv("../lib/gist/gist10.csv")
+train1 <- dat1[-ind, ]
+gist_tr <- xgboost_cv(train = train1, lab = lab_tr, nrou = 100, 
+                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = "GIST")
+```
+
+# SIFT
+```{r}
+dat2 <- read.csv("../data/SIFT_train.csv", header = FALSE)
+train2 <- data.matrix(dat2[-ind, ])
+sift_tr <- xgboost_cv(train = train2, lab = lab_tr, nrou = 100, 
+                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = "SIFT")
+```
+
+# HOG
+```{r}
+dat3 <- 
+```
+
