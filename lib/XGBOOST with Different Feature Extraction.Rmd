@@ -30,6 +30,37 @@ sift_tr <- xgboost_cv(train = train2, lab = lab_tr, nrou = 100,
 
 # HOG
 ```{r}
-dat3 <- 
+load("../output/HOG.RData")
+dat3 <- dat
+
+train3 <- data.matrix(dat3[-ind, ])
+hog_tr <- xgboost_cv(train = train3, lab = lab_tr, nrou = 100, 
+                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = "HOG")
+hog_tr[[2]]
+```
+
+# LBP
+```{r}
+dat4 <- read.csv("../lib/lbp/lbp.csv", header = FALSE)
+train4 <- data.matrix(dat4[-ind, ])
+lbp_tr <- xgboost_cv(train = train4, lab = lab_tr, nrou = 100, 
+                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = "LBP")
+lbp_tr[[2]]
+```
+
+# Using SIFT
+```{r}
+lab_te <- data.matrix(lab[ind, 3])
+lab_te[which(lab_te == 3)] = 0
+test <- data.matrix(dat2[ind, ])
+
+
+param <- list("objective" = "multi:softmax",
+                    "num_class" = 3,
+                    "eta" = 0.8, "max.depth" = 3)
+system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
+pred <- predict(bst, test)
+sum(pred != lab_te)/300
+
 ```
 
