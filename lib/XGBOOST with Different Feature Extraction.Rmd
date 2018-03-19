@@ -4,6 +4,15 @@ output: html_notebook
 ---
 
 ```{r}
+library(xgboost)
+library(ggplot2)
+library(reshape2)
+
+source("../lib/xgboost_cv.R")
+```
+
+
+```{r}
 ind <- c(data.matrix(read.table("../data/TEST-NUMBER.txt")))
 
 lab <- read.csv("../data/label_train.csv")
@@ -25,7 +34,9 @@ gist_tr <- xgboost_cv(train = train1, lab = lab_tr, nrou = 100,
 dat2 <- read.csv("../data/SIFT_train.csv", header = FALSE)
 train2 <- data.matrix(dat2[-ind, ])
 sift_tr <- xgboost_cv(train = train2, lab = lab_tr, nrou = 100, 
-                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = "SIFT")
+                      list_max.depth = c(3, 5, 10, 20), 
+                      list_eta = c(0.03, 0.3, 0.8),
+                      name = "SIFT")
 ```
 
 # HOG
@@ -62,5 +73,26 @@ system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nround
 pred <- predict(bst, test)
 sum(pred != lab_te)/300
 
+```
+
+# SIFT w/ more param
+```{r}
+dat2 <- read.csv("../data/SIFT_train.csv", header = FALSE)
+train2 <- data.matrix(dat2[-ind, ])
+sift_tr2 <- xgboost_cv(train = train2, lab = lab_tr, nrou = 60, 
+                      list_max.depth = c(1,2,3,4), 
+                      list_eta = c(0.5, 0.8, 0.9),
+                      name = "SIFT2")
+sift_tr2[[2]]
+```
+
+# Another test using SIFT
+```{r}
+param <- list("objective" = "multi:softmax",
+                    "num_class" = 3,
+                    "eta" = 0.9, "max.depth" = 4)
+system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 35, verbose = 0))
+pred <- predict(bst, test)
+sum(pred != lab_te)/300
 ```
 
