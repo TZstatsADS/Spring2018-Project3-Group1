@@ -17,11 +17,11 @@ feature_HOG<-function(img_dir){
   n_files <- length(dir_names)
   
   ### calculate HOG of images
-  dat <- matrix(NA, nrow=n_files,ncol=54)
+  dat <- vector()
   for(i in 1:n_files){
     img <- readImage(paste0(img_dir,dir_names[i]))
     img<-rgb_2gray(img)
-    dat[i,] <- HOG(img)
+    dat<- rbind(dat,HOG(img))
   }
   
   ### output constructed features

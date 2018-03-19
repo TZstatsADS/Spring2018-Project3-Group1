@@ -2,7 +2,7 @@ setwd("/Users/JHY/Documents/2018SpringCourse/Applied Data Science/Spring2018-Pro
 test_index<-read.table("TEST-NUMBER.txt")
 test_index<-as.vector(t(test_index))
 feature_SIFT<-read.csv("SIFT_train.csv",header = FALSE)
-feature_SIFT<-feature_SIFT[,2:56]
+feature_SIFT<-feature_SIFT[,-1]
 label<-read.csv("label_train.csv")
 train_data<-feature_SIFT[-test_index,]
 train_label<-label[-test_index,]$label
@@ -55,9 +55,10 @@ best_parameter<-best_mtry[best_n_trees_index]
 
 train_time<-system.time(rf_model_best<-randomForest(train_data,as.factor(train_label),mtry=best_parameter,ntree=best_n_trees))
 train_error <- mean(rf_model_best$predicted != train_label)
+train_error#0.2896
 save(rf_model_best, file="../../output/RFmodel_SIFT.RData")
 
 test_time<-system.time(pred <- predict(rf_model_best,test_data))
 test_error <- mean(pred != test_label)
-test_error
+test_error#0.27
 save(test_error, file="../../output/RFmodel_SIFT_TestError.RData")
