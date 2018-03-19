@@ -20,7 +20,7 @@ Term: Spring 2018
 	+ In the model selection stage, we compared and evaluated GBM, non-linear SVM, Random Forest, XGBoost, Logistic regression and CNN (Convolutional Neural Network) methods.
 
 + Following are the results:
-	+ Baseline model: GBM model SIFT features. Test Error: XXX, model processing time: XXX.
+	+ Baseline model: GBM model with SIFT features. Test Error: XXX, model processing time: XXX.
 	+ Advanced model: XGBoost model with SIFT features. Test Error: XXX, model processing time: XXX.
 	+ Here is the comparison between different models: 
 
