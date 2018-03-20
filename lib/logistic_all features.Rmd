@@ -44,11 +44,11 @@ library(glmnet)
 #(1)
 #gist feature
 ```{r}
-index <- read.table("TEST-NUMBER.txt")
+index <- read.table("../data/TEST-NUMBER.txt")
 index <- as.vector(t(index))
 
-gist <- read.csv('C:/Users/ding/Documents/GitHub/Spring2018-Project3-Group1/lib/gist/gist10.csv')
-label <- read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
+gist <- read.csv('./gist/gist10.csv')
+label <- read.csv('../data/train/label_train.csv')[,3]
 label <- as.data.frame(label)
 
 gist_train <- gist[-index,]
@@ -113,13 +113,13 @@ error
 #(2)
 #lbp feature
 ```{r}
-index <- read.table("TEST-NUMBER.txt")
-index <- as.vector(t(index))
+# index <- read.table("TEST-NUMBER.txt")
+# index <- as.vector(t(index))
 
-LBP <- read.csv('C:/Users/ding/Documents/GitHub/Spring2018-Project3-Group1/lib/lbp/lbp.csv',
+LBP <- read.csv('./lbp/lbp.csv',
                 header = FALSE)
-label <- read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
-label <- as.data.frame(label)
+# label <- read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
+# label <- as.data.frame(label)
 
 LBP_train <- LBP[-index,]
 LBP_test <- LBP[index,]
@@ -152,8 +152,6 @@ plot(lbp_fit,main = "logistic-lbp")
 ```
 
 ```{r}
-library(glmnet)
-
 #best lambda is l
 l <- lbp_fit$lambda.1se
 #model with best lamda cost time 
@@ -183,13 +181,13 @@ error
 #(3)
 #sift feature
 ```{r}
-index <- read.table("TEST-NUMBER.txt")
-index <- as.vector(t(index))
+# index <- read.table("TEST-NUMBER.txt")
+# index <- as.vector(t(index))
 
-SIFT <- read.csv('C:/Users/ding/Desktop/train/train/SIFT_train.csv',
+SIFT <- read.csv('../data/train/SIFT_train.csv',
               header = FALSE)[,-1]
-label=read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
-label=data.frame(label)
+# label=read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
+# label=data.frame(label)
 
 SIFT_train <- SIFT[-index,]
 SIFT_test <- SIFT[index,]
@@ -232,13 +230,13 @@ error
 #(4)
 #hog feature
 ```{r}
-index <- read.table("TEST-NUMBER.txt")
-index <- as.vector(t(index))
+# index <- read.table("TEST-NUMBER.txt")
+# index <- as.vector(t(index))
 
-load("C:/Users/ding/Documents/GitHub/Spring2018-Project3-Group1/output/HOG.RData")
+load("../output/HOG.RData")
 HOG <- dat
-label <- read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
-label <- as.data.frame(label)
+# label <- read.csv('C:/Users/ding/Desktop/train/train/label_train.csv')[,3]
+# label <- as.data.frame(label)
 
 HOG_train <- HOG[-index,]
 HOG_test <- HOG[index,]
