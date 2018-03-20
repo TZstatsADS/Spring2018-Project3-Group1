@@ -2,7 +2,7 @@ setwd("/Users/JHY/Documents/2018SpringCourse/Applied Data Science/Spring2018-Pro
 test_index<-read.table("TEST-NUMBER.txt")
 test_index<-as.vector(t(test_index))
 feature_hog<-load("HOG.RData")
-label<-read.csv("label_train.csv")
+label<-read.csv("../data/label_train.csv")
 train_data<-feature_hog[-test_index,]
 train_label<-label[-test_index,]$label
 test_data<-feature_hog[test_index,]
@@ -39,7 +39,7 @@ for(tree in length(n_trees)){
     train.label <- train_label[cv_index != k]
     validation.data <- train_data[cv_index == k,]
     validation.label <- train_label[cv_index == k]
-    rf_model <- tuneRF(train.data, as.factor(train.label), mtreeTry = n_trees[tree], stepFactor=1.5, improve=1e-5,doBest = TRUE)
+    rf_model <- tuneRF(train.data, as.factor(train.label), ntreeTry = n_trees[tree], stepFactor=1.5, improve=1e-5,doBest = TRUE)
     tune_mtry[k]<-rf_model$mtry
     model_pred<-predict(rf_model,validation.data)
     cv_error[k]<-mean(model_pred!=validation.label)

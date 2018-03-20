@@ -34,7 +34,7 @@ cv_error<-c()
 cv_error_min<-c()
 tune_mtry<-c()
 best_mtry<-c()
-for(tree in length(n_trees)){
+for(tree in 1:length(n_trees)){
   for(k in 1:K){
     train.data <- train_data[cv_index != k,]
     train.label <- train_label[cv_index != k]
