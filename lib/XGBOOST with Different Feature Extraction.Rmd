@@ -67,7 +67,7 @@ test <- data.matrix(dat2[ind, ])
 param <- list("objective" = "multi:softmax",
                     "num_class" = 4,
                     "eta" = 0.8, "max.depth" = 3)
-system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
+t1 <- system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
 pred <- predict(bst, test)
 sum(pred != lab_te)/300
 
