@@ -1,4 +1,4 @@
-xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name){
+xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name, fold =5){
   
   
   num <- length(list_max.depth) * length(list_eta)
@@ -8,10 +8,10 @@ xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name){
   for(j in 1:length(list_max.depth)){
     for(k in 1:length(list_eta)){
       param <- list("objective" = "multi:softmax",
-                    "num_class" = 4,
+                    "num_class" = 3,
                     "eta" = list_eta[k], "max.depth" = list_max.depth[j])
       
-      cv <- xgb.cv(data = train, label = lab, params = param , nround = nrou, nfold = 5, metrics = "merror", verbose = 0)
+      cv <- xgb.cv(data = train, label = lab, params = param , nround = nrou, nfold = fold, metrics = "merror", verbose = 0)
       pos <- (j-1)*length(list_eta)+k
       vec[pos] <- paste0("max.depth = ", list_max.depth[j], ", eta = ", list_eta[k])
       mat[pos, ] <- data.matrix(cv$evaluation_log)[, 4]
@@ -32,6 +32,7 @@ xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name){
   error_melt <- melt(error, id.vars = 'cases')
   plot1 <- ggplot(error_melt, mapping = aes(group = cases))+
             geom_smooth(aes(x = variable, y = round(as.numeric(value), 4), color = cases))+
+            scale_x_discrete(breaks = seq(0, nrou, by = 10))+
             labs(title = paste0("XGBOOST & ", name), x = "nround", y = "Error Rate")
   
   return(list(error, plot1))

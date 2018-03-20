@@ -175,23 +175,26 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh4Z2Jvb3N0KVxubGlicmFyeShnZ3Bsb3QyKVxubGlicmFyeShyZXNoYXBlMilcblxuc291cmNlKFwiLi4vbGliL3hnYm9vc3RfY3YuUlwiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh4Z2Jvb3N0KVxubGlicmFyeShnZ3Bsb3QyKVxubGlicmFyeShyZXNoYXBlMilcbnNvdXJjZShcIi4uL2xpYi94Z2Jvb3N0X2N2LlJcIilcbmBgYCJ9 -->
 <pre class="r"><code>library(xgboost)
 library(ggplot2)
 library(reshape2)
-
 source(&quot;../lib/xgboost_cv.R&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5kIDwtIGMoZGF0YS5tYXRyaXgocmVhZC50YWJsZShcIi4uL2RhdGEvVEVTVC1OVU1CRVIudHh0XCIpKSlcblxubGFiIDwtIHJlYWQuY3N2KFwiLi4vZGF0YS9sYWJlbF90cmFpbi5jc3ZcIilcbmxhYl90ciA8LSBkYXRhLm1hdHJpeChsYWJbLWluZCwgM10pXG5gYGAifQ== -->
-<pre class="r"><code>ind &lt;- c(data.matrix(read.table(&quot;../data/TEST-NUMBER.txt&quot;)))
-
-lab &lt;- read.csv(&quot;../data/label_train.csv&quot;)
-lab_tr &lt;- data.matrix(lab[-ind, 3])</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlKGxhYl90cilcblxuYGBgIn0= -->
+<pre class="r"><code>unique(lab_tr)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdXG5bMSxdICAgIDFcblsyLF0gICAgMlxuWzMsXSAgICAwXG4ifQ== -->
+<pre><code>     [,1]
+[1,]    1
+[2,]    2
+[3,]    0</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="gist" class="section level1">
@@ -211,14 +214,6 @@ gist_tr &lt;- xgboost_cv(train = train1, lab = lab_tr, nrou = 100,
 <h1>SIFT</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0MiA8LSByZWFkLmNzdihcIi4uL2RhdGEvU0lGVF90cmFpbi5jc3ZcIiwgaGVhZGVyID0gRkFMU0UpXG50cmFpbjIgPC0gZGF0YS5tYXRyaXgoZGF0MlstaW5kLCBdKVxuc2lmdF90ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW4yLCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAxMDAsIFxuICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCwgMjApLCBcbiAgICAgICAgICAgICAgICAgICAgICBsaXN0X2V0YSA9IGMoMC4wMywgMC4zLCAwLjgpLFxuICAgICAgICAgICAgICAgICAgICAgIG5hbWUgPSBcIlNJRlRcIilcbmBgYCJ9 -->
-<pre class="r"><code>dat2 &lt;- read.csv(&quot;../data/SIFT_train.csv&quot;, header = FALSE)
-train2 &lt;- data.matrix(dat2[-ind, ])
-sift_tr &lt;- xgboost_cv(train = train2, lab = lab_tr, nrou = 100, 
-                      list_max.depth = c(3, 5, 10, 20), 
-                      list_eta = c(0.03, 0.3, 0.8),
-                      name = &quot;SIFT&quot;)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -226,15 +221,23 @@ sift_tr &lt;- xgboost_cv(train = train2, lab = lab_tr, nrou = 100,
 <h1>HOG</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9hZChcIi4uL291dHB1dC9IT0cuUkRhdGFcIilcbmRhdDMgPC0gZGF0XG5cbnRyYWluMyA8LSBkYXRhLm1hdHJpeChkYXQzWy1pbmQsIF0pXG5ob2dfdHIgPC0geGdib29zdF9jdih0cmFpbiA9IHRyYWluMywgbGFiID0gbGFiX3RyLCBucm91ID0gMTAwLCBcbiAgICAgICAgICAgICAgICAgICAgICBsaXN0X21heC5kZXB0aCA9IGMoMywgNSwgMTAsIDIwKSwgbGlzdF9ldGEgPSBjKDAuMDMsIDAuMywgMC44KSwgbmFtZSA9IFwiSE9HXCIpXG5ob2dfdHJbWzJdXVxuYGBgIn0= -->
-<pre class="r"><code>load(&quot;../output/HOG.RData&quot;)
-dat3 &lt;- dat
-
-train3 &lt;- data.matrix(dat3[-ind, ])
-hog_tr &lt;- xgboost_cv(train = train3, lab = lab_tr, nrou = 100, 
-                      list_max.depth = c(3, 5, 10, 20), list_eta = c(0.03, 0.3, 0.8), name = &quot;HOG&quot;)
-hog_tr[[2]]</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="sift-hog" class="section level1">
+<h1>SIFT + HOG</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICBwbG90MSA8LSBnZ3Bsb3QoZXJyb3JfbWVsdCwgbWFwcGluZyA9IGFlcyhncm91cCA9IGNhc2VzKSkrXG4gICAgICAgICAgICBnZW9tX3Ntb290aChhZXMoeCA9IHZhcmlhYmxlLCB5ID0gcm91bmQoYXMubnVtZXJpYyh2YWx1ZSksIDQpLCBjb2xvciA9IGNhc2VzKSkrXG4gICAgICAgICAgICBzY2FsZV94X2Rpc2NyZXRlKGJyZWFrcyA9IHNlcSgwLCAyNTAsIGJ5ID0gMTApKStcbiAgICAgICAgICAgIGxhYnModGl0bGUgPSBwYXN0ZTAoXCJYR0JPT1NUICYgXCIsIG5hbWUpLCB4ID0gXCJucm91bmRcIiwgeSA9IFwiRXJyb3IgUmF0ZVwiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>  plot1 &lt;- ggplot(error_melt, mapping = aes(group = cases))+
+            geom_smooth(aes(x = variable, y = round(as.numeric(value), 4), color = cases))+
+            scale_x_discrete(breaks = seq(0, 250, by = 10))+
+            labs(title = paste0(&quot;XGBOOST &amp; &quot;, name), x = &quot;nround&quot;, y = &quot;Error Rate&quot;)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gcGFzdGUwKFwiWEdCT09TVCAmIFwiLCBuYW1lKSA6IG9iamVjdCAnbmFtZScgbm90IGZvdW5kXG4ifQ== -->
+<pre><code>Error in paste0(&quot;XGBOOST &amp; &quot;, name) : object 'name' not found</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -256,19 +259,6 @@ lbp_tr[[2]]</code></pre>
 <h1>Using SIFT</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFiX3RlIDwtIGRhdGEubWF0cml4KGxhYltpbmQsIDNdKVxudGVzdCA8LSBkYXRhLm1hdHJpeChkYXQyW2luZCwgXSlcblxuXG5wYXJhbSA8LSBsaXN0KFwib2JqZWN0aXZlXCIgPSBcIm11bHRpOnNvZnRtYXhcIixcbiAgICAgICAgICAgICAgICAgICAgXCJudW1fY2xhc3NcIiA9IDQsXG4gICAgICAgICAgICAgICAgICAgIFwiZXRhXCIgPSAwLjgsIFwibWF4LmRlcHRoXCIgPSAzKVxuc3lzdGVtLnRpbWUoYnN0IDwtIHhnYm9vc3QoZGF0YSA9IHRyYWluMiwgbGFiZWwgPSBsYWJfdHIsIHBhcmFtcyA9IHBhcmFtLCBucm91bmRzID0gNDAsIHZlcmJvc2UgPSAwKSlcbnByZWQgPC0gcHJlZGljdChic3QsIHRlc3QpXG5zdW0ocHJlZCAhPSBsYWJfdGUpLzMwMFxuXG5gYGAifQ== -->
-<pre class="r"><code>lab_te &lt;- data.matrix(lab[ind, 3])
-test &lt;- data.matrix(dat2[ind, ])
-
-
-param &lt;- list(&quot;objective&quot; = &quot;multi:softmax&quot;,
-                    &quot;num_class&quot; = 4,
-                    &quot;eta&quot; = 0.8, &quot;max.depth&quot; = 3)
-system.time(bst &lt;- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
-pred &lt;- predict(bst, test)
-sum(pred != lab_te)/300
-</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -292,20 +282,19 @@ sift_tr2[[2]]</code></pre>
 <h1>Another test using SIFT</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFyYW0gPC0gbGlzdChcIm9iamVjdGl2ZVwiID0gXCJtdWx0aTpzb2Z0bWF4XCIsXG4gICAgICAgICAgICAgICAgICAgIFwibnVtX2NsYXNzXCIgPSA0LFxuICAgICAgICAgICAgICAgICAgICBcImV0YVwiID0gMC45LCBcIm1heC5kZXB0aFwiID0gNClcbnN5c3RlbS50aW1lKGJzdCA8LSB4Z2Jvb3N0KGRhdGEgPSB0cmFpbjIsIGxhYmVsID0gbGFiX3RyLCBwYXJhbXMgPSBwYXJhbSwgbnJvdW5kcyA9IDM1LCB2ZXJib3NlID0gMCkpXG5wcmVkIDwtIHByZWRpY3QoYnN0LCB0ZXN0KVxuc3VtKHByZWQgIT0gbGFiX3RlKS8zMDBcbmBgYCJ9 -->
-<pre class="r"><code>param &lt;- list(&quot;objective&quot; = &quot;multi:softmax&quot;,
-                    &quot;num_class&quot; = 4,
-                    &quot;eta&quot; = 0.9, &quot;max.depth&quot; = 4)
-system.time(bst &lt;- xgboost(data = train2, label = lab_tr, params = param, nrounds = 35, verbose = 0))
-pred &lt;- predict(bst, test)
-sum(pred != lab_te)/300</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihwcmVkICE9IGxhYl90ZSlcblxuYGBgIn0= -->
+<pre class="r"><code>mean(pred != lab_te)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNjNcbiJ9 -->
+<pre><code>[1] 0.63</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlhHQk9PU1Qgd2l0aCBEaWZmZXJlbnQgRmVhdHVyZSBFeHRyYWN0aW9uIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQpsaWJyYXJ5KHhnYm9vc3QpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KHJlc2hhcGUyKQ0KDQpzb3VyY2UoIi4uL2xpYi94Z2Jvb3N0X2N2LlIiKQ0KYGBgDQoNCg0KYGBge3J9DQppbmQgPC0gYyhkYXRhLm1hdHJpeChyZWFkLnRhYmxlKCIuLi9kYXRhL1RFU1QtTlVNQkVSLnR4dCIpKSkNCg0KbGFiIDwtIHJlYWQuY3N2KCIuLi9kYXRhL2xhYmVsX3RyYWluLmNzdiIpDQpsYWJfdHIgPC0gZGF0YS5tYXRyaXgobGFiWy1pbmQsIDNdKQ0KYGBgDQoNCg0KIyBHSVNUDQpgYGB7cn0NCmRhdDEgPC0gcmVhZC5jc3YoIi4uL2xpYi9naXN0L2dpc3QxMC5jc3YiKQ0KdHJhaW4xIDwtIGRhdDFbLWluZCwgXQ0KZ2lzdF90ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW4xLCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAxMDAsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCwgMjApLCBsaXN0X2V0YSA9IGMoMC4wMywgMC4zLCAwLjgpLCBuYW1lID0gIkdJU1QiKQ0KYGBgDQoNCiMgU0lGVA0KYGBge3J9DQpkYXQyIDwtIHJlYWQuY3N2KCIuLi9kYXRhL1NJRlRfdHJhaW4uY3N2IiwgaGVhZGVyID0gRkFMU0UpDQp0cmFpbjIgPC0gZGF0YS5tYXRyaXgoZGF0MlstaW5kLCBdKQ0Kc2lmdF90ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW4yLCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAxMDAsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCwgMjApLCANCiAgICAgICAgICAgICAgICAgICAgICBsaXN0X2V0YSA9IGMoMC4wMywgMC4zLCAwLjgpLA0KICAgICAgICAgICAgICAgICAgICAgIG5hbWUgPSAiU0lGVCIpDQpgYGANCg0KIyBIT0cNCmBgYHtyfQ0KbG9hZCgiLi4vb3V0cHV0L0hPRy5SRGF0YSIpDQpkYXQzIDwtIGRhdA0KDQp0cmFpbjMgPC0gZGF0YS5tYXRyaXgoZGF0M1staW5kLCBdKQ0KaG9nX3RyIDwtIHhnYm9vc3RfY3YodHJhaW4gPSB0cmFpbjMsIGxhYiA9IGxhYl90ciwgbnJvdSA9IDEwMCwgDQogICAgICAgICAgICAgICAgICAgICAgbGlzdF9tYXguZGVwdGggPSBjKDMsIDUsIDEwLCAyMCksIGxpc3RfZXRhID0gYygwLjAzLCAwLjMsIDAuOCksIG5hbWUgPSAiSE9HIikNCmhvZ190cltbMl1dDQpgYGANCg0KIyBMQlANCmBgYHtyfQ0KZGF0NCA8LSByZWFkLmNzdigiLi4vbGliL2xicC9sYnAuY3N2IiwgaGVhZGVyID0gRkFMU0UpDQp0cmFpbjQgPC0gZGF0YS5tYXRyaXgoZGF0NFstaW5kLCBdKQ0KbGJwX3RyIDwtIHhnYm9vc3RfY3YodHJhaW4gPSB0cmFpbjQsIGxhYiA9IGxhYl90ciwgbnJvdSA9IDEwMCwgDQogICAgICAgICAgICAgICAgICAgICAgbGlzdF9tYXguZGVwdGggPSBjKDMsIDUsIDEwLCAyMCksIGxpc3RfZXRhID0gYygwLjAzLCAwLjMsIDAuOCksIG5hbWUgPSAiTEJQIikNCmxicF90cltbMl1dDQpgYGANCg0KIyBVc2luZyBTSUZUDQpgYGB7cn0NCmxhYl90ZSA8LSBkYXRhLm1hdHJpeChsYWJbaW5kLCAzXSkNCnRlc3QgPC0gZGF0YS5tYXRyaXgoZGF0MltpbmQsIF0pDQoNCg0KcGFyYW0gPC0gbGlzdCgib2JqZWN0aXZlIiA9ICJtdWx0aTpzb2Z0bWF4IiwNCiAgICAgICAgICAgICAgICAgICAgIm51bV9jbGFzcyIgPSA0LA0KICAgICAgICAgICAgICAgICAgICAiZXRhIiA9IDAuOCwgIm1heC5kZXB0aCIgPSAzKQ0Kc3lzdGVtLnRpbWUoYnN0IDwtIHhnYm9vc3QoZGF0YSA9IHRyYWluMiwgbGFiZWwgPSBsYWJfdHIsIHBhcmFtcyA9IHBhcmFtLCBucm91bmRzID0gNDAsIHZlcmJvc2UgPSAwKSkNCnByZWQgPC0gcHJlZGljdChic3QsIHRlc3QpDQpzdW0ocHJlZCAhPSBsYWJfdGUpLzMwMA0KDQpgYGANCg0KIyBTSUZUIHcvIG1vcmUgcGFyYW0NCmBgYHtyfQ0KZGF0MiA8LSByZWFkLmNzdigiLi4vZGF0YS9TSUZUX3RyYWluLmNzdiIsIGhlYWRlciA9IEZBTFNFKQ0KdHJhaW4yIDwtIGRhdGEubWF0cml4KGRhdDJbLWluZCwgXSkNCnNpZnRfdHIyIDwtIHhnYm9vc3RfY3YodHJhaW4gPSB0cmFpbjIsIGxhYiA9IGxhYl90ciwgbnJvdSA9IDYwLCANCiAgICAgICAgICAgICAgICAgICAgICBsaXN0X21heC5kZXB0aCA9IGMoMSwyLDMsNCksIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfZXRhID0gYygwLjUsIDAuOCwgMC45KSwNCiAgICAgICAgICAgICAgICAgICAgICBuYW1lID0gIlNJRlQyIikNCnNpZnRfdHIyW1syXV0NCmBgYA0KDQojIEFub3RoZXIgdGVzdCB1c2luZyBTSUZUDQpgYGB7cn0NCnBhcmFtIDwtIGxpc3QoIm9iamVjdGl2ZSIgPSAibXVsdGk6c29mdG1heCIsDQogICAgICAgICAgICAgICAgICAgICJudW1fY2xhc3MiID0gNCwNCiAgICAgICAgICAgICAgICAgICAgImV0YSIgPSAwLjksICJtYXguZGVwdGgiID0gNCkNCnN5c3RlbS50aW1lKGJzdCA8LSB4Z2Jvb3N0KGRhdGEgPSB0cmFpbjIsIGxhYmVsID0gbGFiX3RyLCBwYXJhbXMgPSBwYXJhbSwgbnJvdW5kcyA9IDM1LCB2ZXJib3NlID0gMCkpDQpwcmVkIDwtIHByZWRpY3QoYnN0LCB0ZXN0KQ0Kc3VtKHByZWQgIT0gbGFiX3RlKS8zMDANCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlhHQk9PU1Qgd2l0aCBEaWZmZXJlbnQgRmVhdHVyZSBFeHRyYWN0aW9uIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQpsaWJyYXJ5KHhnYm9vc3QpDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KHJlc2hhcGUyKQ0KDQpzb3VyY2UoIi4uL2xpYi94Z2Jvb3N0X2N2LlIiKQ0KYGBgDQoNCg0KYGBge3J9DQppbmQgPC0gYyhkYXRhLm1hdHJpeChyZWFkLnRhYmxlKCIuLi9kYXRhL1RFU1QtTlVNQkVSLnR4dCIpKSkNCg0KbGFiIDwtIHJlYWQuY3N2KCIuLi9kYXRhL2xhYmVsX3RyYWluLmNzdiIpDQpsYWJfdHIgPC0gZGF0YS5tYXRyaXgobGFiWy1pbmQsIDNdKQ0KbGFiX3RyW3doaWNoKGxhYl90ciA9PSAzKV0gPSAwDQpgYGANCg0KDQojIEdJU1QNCmBgYHtyfQ0KZGF0MSA8LSByZWFkLmNzdigiLi4vbGliL2dpc3QvZ2lzdDEwLmNzdiIpDQp0cmFpbjEgPC0gZGF0MVstaW5kLCBdDQpnaXN0X3RyIDwtIHhnYm9vc3RfY3YodHJhaW4gPSB0cmFpbjEsIGxhYiA9IGxhYl90ciwgbnJvdSA9IDEwMCwgDQogICAgICAgICAgICAgICAgICAgICAgbGlzdF9tYXguZGVwdGggPSBjKDMsIDUsIDEwLCAyMCksIGxpc3RfZXRhID0gYygwLjAzLCAwLjMsIDAuOCksIG5hbWUgPSAiR0lTVCIpDQpgYGANCg0KIyBTSUZUDQpgYGB7cn0NCmRhdDIgPC0gcmVhZC5jc3YoIi4uL2RhdGEvU0lGVF90cmFpbi5jc3YiLCBoZWFkZXIgPSBGQUxTRSkNCnRyYWluMiA8LSBkYXRhLm1hdHJpeChkYXQyWy1pbmQsIC0xXSkNCnNpZnRfdHIgPC0geGdib29zdF9jdih0cmFpbiA9IHRyYWluMiwgbGFiID0gbGFiX3RyLCBucm91ID0gMzAwLCANCiAgICAgICAgICAgICAgICAgICAgICBsaXN0X21heC5kZXB0aCA9IGMoMywgNSwgMTAsIDIwKSwgDQogICAgICAgICAgICAgICAgICAgICAgbGlzdF9ldGEgPSBjKDAuMDMsIDAuMywgMC41KSwNCiAgICAgICAgICAgICAgICAgICAgICBuYW1lID0gIlNJRlQiKQ0KYGBgDQoNCiMgSE9HDQpgYGB7cn0NCmxvYWQoIi4uL291dHB1dC9IT0cuUkRhdGEiKQ0KZGF0MyA8LSBkYXQNCg0KdHJhaW4zIDwtIGRhdGEubWF0cml4KGRhdDNbLWluZCwgXSkNCmhvZ190ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW4zLCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAzMDAsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCwgMjApLCBsaXN0X2V0YSA9IGMoMC4wMywgMC4zLCAwLjgpLCBuYW1lID0gIkhPRyIpDQpob2dfdHJbWzJdXQ0KYGBgDQoNCiNTSUZUICsgSE9HDQpgYGB7cn0NCmRhdDYgPC0gY2JpbmQoZGF0MiwgZGF0MylbLCAtMV0NCnRyYWluNiA8LSBkYXRhLm1hdHJpeChkYXQ2Wy1pbmQsIF0pDQpzaF90ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW42LCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAyNTAsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCksIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfZXRhID0gYygwLjAzLCAwLjMsIDAuNSksDQogICAgICAgICAgICAgICAgICAgICAgbmFtZSA9ICJTSUZUICsgSE9HIikNCm1hdDEgPC0gc2hfdHJbWzFdXQ0KbGlicmFyeShyZXNoYXBlMikNCiAgZXJyb3JfbWVsdCA8LSBtZWx0KG1hdDEsIGlkLnZhcnMgPSAnY2FzZXMnKQ0KICBwbG90MSA8LSBnZ3Bsb3QoZXJyb3JfbWVsdCwgbWFwcGluZyA9IGFlcyhncm91cCA9IGNhc2VzKSkrDQogICAgICAgICAgICBnZW9tX3Ntb290aChhZXMoeCA9IHZhcmlhYmxlLCB5ID0gcm91bmQoYXMubnVtZXJpYyh2YWx1ZSksIDQpLCBjb2xvciA9IGNhc2VzKSkrDQogICAgICAgICAgICBzY2FsZV94X2Rpc2NyZXRlKGJyZWFrcyA9IHNlcSgwLCAyNTAsIGJ5ID0gMTApKSsNCiAgICAgICAgICAgIGxhYnModGl0bGUgPSBwYXN0ZTAoIlhHQk9PU1QgJiAiLCAiU0lGVCtIT0ciKSwgeCA9ICJucm91bmQiLCB5ID0gIkVycm9yIFJhdGUiKQ0KICANCmBgYA0KDQoNCiMgTEJQDQpgYGB7cn0NCmRhdDQgPC0gcmVhZC5jc3YoIi4uL2xpYi9sYnAvbGJwLmNzdiIsIGhlYWRlciA9IEZBTFNFKQ0KdHJhaW40IDwtIGRhdGEubWF0cml4KGRhdDRbLWluZCwgXSkNCmxicF90ciA8LSB4Z2Jvb3N0X2N2KHRyYWluID0gdHJhaW40LCBsYWIgPSBsYWJfdHIsIG5yb3UgPSAxMDAsIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfbWF4LmRlcHRoID0gYygzLCA1LCAxMCwgMjApLCBsaXN0X2V0YSA9IGMoMC4wMywgMC4zLCAwLjgpLCBuYW1lID0gIkxCUCIpDQpsYnBfdHJbWzJdXQ0KYGBgDQoNCiMgVXNpbmcgU0lGVA0KYGBge3J9DQpsYWJfdGUgPC0gZGF0YS5tYXRyaXgobGFiW2luZCwgM10pDQp0ZXN0IDwtIGRhdGEubWF0cml4KGRhdDJbaW5kLCAtMV0pDQoNCg0KcGFyYW0gPC0gbGlzdCgib2JqZWN0aXZlIiA9ICJtdWx0aTpzb2Z0bWF4IiwNCiAgICAgICAgICAgICAgICAgICAgIm51bV9jbGFzcyIgPSA0LA0KICAgICAgICAgICAgICAgICAgICAiZXRhIiA9IDAuOCwgIm1heC5kZXB0aCIgPSAzKQ0KdDEgPC0gc3lzdGVtLnRpbWUoYnN0IDwtIHhnYm9vc3QoZGF0YSA9IHRyYWluMiwgbGFiZWwgPSBsYWJfdHIsIHBhcmFtcyA9IHBhcmFtLCBucm91bmRzID0gNDAsIHZlcmJvc2UgPSAwKSkNCnByZWQgPC0gcHJlZGljdChic3QsIHRlc3QpDQpzdW0ocHJlZCAhPSBsYWJfdGUpLzMwMA0KDQpgYGANCg0KIyBTSUZUIHcvIG1vcmUgcGFyYW0NCmBgYHtyfQ0KZGF0MiA8LSByZWFkLmNzdigiLi4vZGF0YS9TSUZUX3RyYWluLmNzdiIsIGhlYWRlciA9IEZBTFNFKQ0KdHJhaW4yIDwtIGRhdGEubWF0cml4KGRhdDJbLWluZCwgXSkNCnNpZnRfdHIyIDwtIHhnYm9vc3RfY3YodHJhaW4gPSB0cmFpbjIsIGxhYiA9IGxhYl90ciwgbnJvdSA9IDYwLCANCiAgICAgICAgICAgICAgICAgICAgICBsaXN0X21heC5kZXB0aCA9IGMoMSwyLDMsNCksIA0KICAgICAgICAgICAgICAgICAgICAgIGxpc3RfZXRhID0gYygwLjUsIDAuOCwgMC45KSwNCiAgICAgICAgICAgICAgICAgICAgICBuYW1lID0gIlNJRlQyIikNCnNpZnRfdHIyW1syXV0NCmBgYA0KDQojIEFub3RoZXIgdGVzdCB1c2luZyBTSUZUDQpgYGB7cn0NCnBhcmFtIDwtIGxpc3QoIm9iamVjdGl2ZSIgPSAibXVsdGk6c29mdG1heCIsDQogICAgICAgICAgICAgICAgICAgICJudW1fY2xhc3MiID0gNCwNCiAgICAgICAgICAgICAgICAgICAgImV0YSIgPSAwLjksICJtYXguZGVwdGgiID0gNCkNCnN5c3RlbS50aW1lKGJzdCA8LSB4Z2Jvb3N0KGRhdGEgPSB0cmFpbjIsIGxhYmVsID0gbGFiX3RyLCBwYXJhbXMgPSBwYXJhbSwgbnJvdW5kcyA9IDM1LCB2ZXJib3NlID0gMCkpDQpwcmVkIDwtIHByZWRpY3QoYnN0LCB0ZXN0KQ0KbWVhbihwcmVkICE9IGxhYl90ZSkNCmBgYA0KDQo=</div>
 
 
 
