@@ -32,6 +32,7 @@ xgboost_cv <- function(train, lab, nrou, list_max.depth, list_eta, name, fold =5
   error_melt <- melt(error, id.vars = 'cases')
   plot1 <- ggplot(error_melt, mapping = aes(group = cases))+
             geom_smooth(aes(x = variable, y = round(as.numeric(value), 4), color = cases))+
+            scale_x_discrete(breaks = seq(0, nrou, by = 10))+
             labs(title = paste0("XGBOOST & ", name), x = "nround", y = "Error Rate")
   
   return(list(error, plot1))
