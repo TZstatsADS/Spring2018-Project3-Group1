@@ -17,7 +17,7 @@ ind <- c(data.matrix(read.table("../data/TEST-NUMBER.txt")))
 
 lab <- read.csv("../data/label_train.csv")
 lab_tr <- data.matrix(lab[-ind, 3])
-lab_tr[which(lab_tr == 3)] = 0
+# lab_tr[which(lab_tr == 3)] = 0
 ```
 
 
@@ -285,5 +285,16 @@ ghl_tr <- xgboost_cv(train = train11, lab = lab_tr, nrou = 300,
                       list_eta = c(0.3, 0.5, 0.8),
                       name = "GIST + HOG + lbp")
 
+```
+
+# SIFT + HOG +lbp
+```{r}
+dat11 <- cbind(dat2, dat3, dat4)
+train11 <- data.matrix(dat11[-ind, ])
+
+ghl_tr2 <- xgboost_cv(train = train11, lab = lab_tr, nrou = 200, 
+                      list_max.depth = c(2, 3, 4), 
+                      list_eta = c(0.4, 0.5),
+                      name = "SIST + HOG + lbp 2")
 ```
 
