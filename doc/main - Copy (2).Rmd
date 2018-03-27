@@ -80,16 +80,27 @@ if(run.cv){
                       list_eta = c(0.03, 0.3, 0.5, 0.8),
                       name = "SIFT + HOG + lbp", fold = K)
   err.cv1 <- shl_tr[[1]]
-  save(err.cv1, file = "../XGBOOST_results/err_shl.csv")
+  save(err.cv1, file = "../output/XGBOOST_results/err_shl.RData")
   
+
   print(shl_tr[[2]])
+  
+  jpeg("../output/XGBOOST_results/XGBOOST & SIFT + HOG + lbp0.jpeg")
+  plot(shl_tr[[2]])
+  dev.off
   
   shl_tr2 <- xgboost_cv(train = train2, lab = lab_tr, nrou = 200, 
                       list_max.depth = c(2, 3, 4), 
                       list_eta = c(0.4, 0.5),
                       name = "SIFT + HOG + lbp 2", fold = K)
   err.cv2 <- shl_tr2[[1]]
-  save(err.cv2, file = "../XGBOOST_results/err_shl2.csv")
+  save(err.cv2, file = "../output/XGBOOST_results/err_shl2.RData")
+  
+   print(shl_tr2[[2]])
+  
+  jpeg("../output/XGBOOST_results/XGBOOST & SIFT + HOG + lbp2.jpeg")
+  plot(shl_tr2[[2]])
+  dev.off
 }
 ```
 
