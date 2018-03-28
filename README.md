@@ -28,7 +28,7 @@ Term: Spring 2018
 XXXX
 
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement.
-+ Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model
++ Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model, main
 + Ding, Xueying: Conduct LBP feature extraction, train/test Logistic Model
 + Ji, Hanying: Conduct HOG feature extraction, train/test Random Forest Model
 + Tong, Yu: Train/test GBM and CNN Model, prepare presentation and presentor
