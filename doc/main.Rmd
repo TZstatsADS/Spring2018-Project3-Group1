@@ -126,17 +126,24 @@ Feed the final training model with the completely holdout testing data.
 ```{r test}
 tm_test=NA
 if(run.test){
-  sift1 <- read.csv(paste0(feat.dir, "SIFT_test.csv"))
-  load(paste0(feat.dir, "hog_test.RData"))
-  lbp1 <- read.csv(paste0(feat.dir, "lbp_test.csv"))
+  sift1 <- read.csv(paste0(feat.dir, "SIFT_test.csv"), header = FALSE)[, -1]
+  load(paste0(feat.dir, "HOG_test.RData"))
+  lbp1 <- read.csv(paste0(feat.dir, "lbp_test.csv"), header = FALSE)
   test <- cbind(sift1, dat, lbp1)
   test <- data.matrix(test)
   
+  lab_te <- read.csv(paste0(feat.dir, "labels1.csv"))
+  base <- read.csv(paste0(feat.dir, "baselinetest.csv"))
+  
   tm_test <- system.time(pred <- predict(bst, test))
-  save(pred, file="../output/XGBOOST_results/pred_test.RData")
+  lab_te[,3] <- pred
+  lab_te[,2] <- base[,2]
+  save(lab_te, file="../output/XGBOOST_results/labels.RData")
+  write.csv(lab_te, file = paste0(feat.dir, "labels.csv"), row.names = FALSE)
   
   # lab_te <- read.csv(paste0(feat.dir, "label_test1.csv"))
   # mean(pred != lab_te)
+  
 }
 ```
 
