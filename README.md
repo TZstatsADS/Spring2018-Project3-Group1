@@ -26,7 +26,7 @@ Term: Spring 2018
 	![image](figs/Compare.JPG)
 
 + Possible Improvements: 
-  By using the combination of 
+  By using the combination of SIFT, HOG and LBP as feature detector and XGBoost as the classify algorithm, we can improve our model by reducing the test error from 28% to 9.3%.
 
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement.
 + Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model, write main.rmd
