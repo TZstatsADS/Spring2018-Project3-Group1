@@ -21,14 +21,14 @@ Term: Spring 2018
 
 + Following are the results:
 	+ Baseline model: GBM model with SIFT features. Test Error: XXX, model processing time: XXX.
-	+ Advanced model: XGBoost model with SIFT features. Test Error: XXX, model processing time: XXX.
+	+ Advanced model: XGBoost model with SIFT + HOG + LBP features. Test Error: 9.33%, model processing time: 17.84s.
 	+ Here is the comparison between different models: 
 
 + Possible Improvements: 
 XXXX
 
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement.
-+ Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model
++ Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model, write main.rmd
 + Ding, Xueying: Conduct LBP feature extraction, train/test Logistic Model
 + Ji, Hanying: Conduct HOG feature extraction, train/test Random Forest Model
 + Tong, Yu: Train/test GBM and CNN Model, prepare presentation and presentor
