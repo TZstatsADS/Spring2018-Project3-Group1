@@ -25,7 +25,7 @@ feature_HOG<-function(img_dir){
   }
   
   ### output constructed features
-  save(dat, file="./output/features2/HOG.RData")
+  save(dat, file="./output/features2/HOG_test.RData")
   return(dat)
 }
 
