@@ -59,13 +59,6 @@ sh_tr <- xgboost_cv(train = train6, lab = lab_tr, nrou = 250,
                       list_eta = c(0.03, 0.3, 0.5),
                       name = "SIFT + HOG")
 mat1 <- sh_tr[[1]]
-library(reshape2)
-  error_melt <- melt(mat1, id.vars = 'cases')
-  plot1 <- ggplot(error_melt, mapping = aes(group = cases))+
-            geom_smooth(aes(x = variable, y = round(as.numeric(value), 4), color = cases))+
-            scale_x_discrete(breaks = seq(0, 250, by = 10))+
-            labs(title = paste0("XGBOOST & ", "SIFT+HOG"), x = "nround", y = "Error Rate")
-  
 ```
 
 
@@ -93,18 +86,8 @@ sum(pred != lab_te)/300
 
 ```
 
-# SIFT w/ more param
-```{r}
-dat2 <- read.csv("../data/SIFT_train.csv", header = FALSE)
-train2 <- data.matrix(dat2[-ind, ])
-sift_tr2 <- xgboost_cv(train = train2, lab = lab_tr, nrou = 60, 
-                      list_max.depth = c(1,2,3,4), 
-                      list_eta = c(0.5, 0.8, 0.9),
-                      name = "SIFT2")
-sift_tr2[[2]]
-```
 
-# Another test using SIFT
+# Test SIFT + HOG
 ```{r}
 lab_te <- data.matrix(lab[ind, 3])
 test <- data.matrix(dat6[ind, ])
@@ -237,12 +220,6 @@ shl_tr <- xgboost_cv(train = train11, lab = lab_tr, nrou = 300,
                       list_eta = c(0.3, 0.5, 0.8),
                       name = "SIFT + HOG + lbp")
 dat <- shl_tr[[1]]
-library(reshape2)
-  error_melt <- melt(dat, id.vars = 'cases')
-  plot1 <- ggplot(error_melt, mapping = aes(group = cases))+
-            geom_smooth(aes(x = variable, y = round(as.numeric(value), 4), color = cases))+
-            scale_x_discrete(breaks = seq(0, 300, by = 10))+
-            labs(title = paste0("XGBOOST & ", "SIFT + HOG + lbp"), x = "nround", y = "Error Rate")
 ```
 
 # GIST6 + HOG
