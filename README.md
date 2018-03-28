@@ -20,12 +20,12 @@ Term: Spring 2018
 	+ In the model selection stage, we compared and evaluated GBM, non-linear SVM, Random Forest, XGBoost, Logistic regression and CNN (Convolutional Neural Network) methods.
 
 + Following are the results:
-	+ Baseline model: GBM model with SIFT features. Test Error: XXX, model processing time: XXX.
+	+ Baseline model: GBM model with SIFT features. Test Error: 28%, model processing time: 153s.
 	+ Advanced model: XGBoost model with SIFT + HOG + LBP features. Test Error: 9.33%, model processing time: 17.84s.
 	+ Here is the comparison between different models: 
 
 + Possible Improvements: 
-XXXX
+
 
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement.
 + Cui, Wanting: Conduct GIST feature extraction, train/test XGBoost Model, write main.rmd
