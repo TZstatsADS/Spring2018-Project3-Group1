@@ -129,7 +129,7 @@ if(run.test){
   sift1 <- read.csv(paste0(feat.dir, "SIFT_test.csv"))
   load(paste0(feat.dir, "hog_test.RData"))
   lbp1 <- read.csv(paste0(feat.dir, "lbp_test.csv"))
-  test <- cbind(sift1, hog1, lbp1)
+  test <- cbind(sift1, dat, lbp1)
   test <- data.matrix(test)
   
   tm_test <- system.time(pred <- predict(bst, test))
