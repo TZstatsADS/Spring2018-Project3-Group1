@@ -13,9 +13,9 @@ source("../lib/xgboost_cv.R")
 
 
 ```{r}
-ind <- c(data.matrix(read.table("../data/TEST-NUMBER.txt")))
+ind <- c(data.matrix(read.table("../output/TEST-NUMBER.txt")))
 
-lab <- read.csv("../data/label_train.csv")
+lab <- read.csv("../output/features/label_train.csv")
 lab_tr <- data.matrix(lab[-ind, 3])
 # lab_tr[which(lab_tr == 3)] = 0
 ```
@@ -41,7 +41,7 @@ sift_tr <- xgboost_cv(train = train2, lab = lab_tr, nrou = 300,
 
 # HOG
 ```{r}
-load("../output/HOG.RData")
+load("../output/features/HOG.RData")
 dat3 <- dat
 
 train3 <- data.matrix(dat3[-ind, ])
@@ -86,8 +86,8 @@ test <- data.matrix(dat2[ind, -1])
 
 param <- list("objective" = "multi:softmax",
                     "num_class" = 4,
-                    "eta" = 0.8, "max.depth" = 3)
-t1 <- system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 40, verbose = 0))
+                    "eta" = 0.3, "max.depth" = 3)
+system.time(bst <- xgboost(data = train2, label = lab_tr, params = param, nrounds = 200, verbose = 0))
 pred <- predict(bst, test)
 sum(pred != lab_te)/300
 
@@ -111,7 +111,7 @@ test <- data.matrix(dat6[ind, ])
 
 param <- list("objective" = "multi:softmax",
                     "num_class" = 4,
-                    "eta" = 0.5, "max.depth" = 4)
+                    "eta" = 0.5, "max.depth" = 3)
 system.time(bst <- xgboost(data = train6, label = lab_tr, params = param, nrounds = 200, verbose = 0))
 pred <- predict(bst, test)
 mean(pred != lab_te)
@@ -220,9 +220,11 @@ test <- data.matrix(dat11[ind, ])
 param <- list("objective" = "multi:softmax",
                     "num_class" = 4,
                     "eta" = 0.5, "max.depth" = 4)
-system.time(bst <- xgboost(data = train11, label = lab_tr, params = param, nrounds = 80, verbose = 0))
+system.time(bst <- xgboost(data = train11, label = lab_tr, params = param, nrounds = 200, verbose = 0))
 pred <- predict(bst, test)
 mean(pred != lab_te)
+
+lab_te <- read.csv()
 ```
 
 # SIFT + HOG + lbp cv
