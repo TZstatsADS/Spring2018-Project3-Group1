@@ -1,5 +1,5 @@
-setwd("/Users/JHY/Documents/2018SpringCourse/Applied Data Science/Spring2018-Project3-Group1/lib")
-img_dir <- "../data/train/images/"
+setwd("/Users/JHY/Documents/2018SpringCourse/Applied Data Science/Spring2018-Project3-Group1")
+img_dir <- "./data/train/images/"
 #source("http://bioconductor.org/biocLite.R")
 #biocLite("EBImage")
 
@@ -25,9 +25,8 @@ feature_HOG<-function(img_dir){
   }
   
   ### output constructed features
-  save(dat, file="../output/HOG.RData")
+  save(dat, file="./output/features/HOG.RData")
   return(dat)
 }
 
 dat_HOG<-feature_HOG(img_dir)
-#write.csv(dat_HOG,"../output/features_HOG.csv")
