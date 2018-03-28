@@ -13,7 +13,7 @@ source("../lib/xgboost_cv.R")
 
 
 ```{r}
-ind <- c(data.matrix(read.table("../output/TEST-NUMBER.txt")))
+ind <- c(data.matrix(read.table("../data/train/TEST-NUMBER.txt")))
 
 lab <- read.csv("../output/features/label_train.csv")
 lab_tr <- data.matrix(lab[-ind, 3])
