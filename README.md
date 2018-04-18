@@ -23,6 +23,7 @@ Term: Spring 2018
 	+ Baseline model: GBM model with SIFT features. Test Error: 28%, model processing time: 153s.
 	+ Advanced model: XGBoost model with SIFT + HOG + LBP features. Test Error: 9.33%, model processing time: 17.84s.
 	+ Here is the comparison between different models: 
+	
 	![image](figs/Compare.JPG)
 
 + Possible Improvements: 
